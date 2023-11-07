@@ -1,7 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using ShelfSpeak.DataAccess;
+using Microsoft.AspNetCore.Identity;
+using ShelfSpeak.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
+                    ?? throw new InvalidOperationException(
+                        "Connection string 'ShelfSpeak' not found."
+                    )
+            )
+            .EnableSensitiveDataLogging()
+
+            .UseSnakeCaseNamingConvention();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -20,6 +30,9 @@ builder.Services.AddDbContext<ShelfSpeakContext>(
             .UseSnakeCaseNamingConvention()
 );
 
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ShelfSpeakContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,11 +47,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
