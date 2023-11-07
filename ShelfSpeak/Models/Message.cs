@@ -19,6 +19,8 @@ namespace ShelfSpeak.Models
         public List<int> Upvotes { get; set; } = new List<int>();
 
 
+
+
         public void Upvote(User user)
         {
             if (!Upvotes.Contains(user.Id))

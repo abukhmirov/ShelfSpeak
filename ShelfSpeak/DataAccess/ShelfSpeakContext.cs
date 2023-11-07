@@ -10,7 +10,6 @@ namespace ShelfSpeak.DataAccess
     {
         public DbSet<Message> Posts { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Group> Groups { get; set; }
 
         public ShelfSpeakContext(DbContextOptions<ShelfSpeakContext> options)
             : base(options) { }
