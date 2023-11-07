@@ -1,7 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using ShelfSpeak.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ShelfSpeakContext>(
+    options =>
+        options
+            .UseNpgsql(
+                builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
+                    ?? throw new InvalidOperationException(
+                        "Connection string 'ShelfSpeak' not found."
+                    )
+            )
+            .EnableSensitiveDataLogging()
+
+            .UseSnakeCaseNamingConvention()
+);
 
 var app = builder.Build();
 
