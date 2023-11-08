@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Identity;
 using ShelfSpeak.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
-                    ?? throw new InvalidOperationException(
-                        "Connection string 'ShelfSpeak' not found."
-                    )
-            )
-            .EnableSensitiveDataLogging()
+//var connectionString = builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
+//                    ?? throw new InvalidOperationException(
+//                        "Connection string 'ShelfSpeak' not found."
+//                    )
+//            )
+//            .EnableSensitiveDataLogging()
 
-            .UseSnakeCaseNamingConvention();
+//            .UseSnakeCaseNamingConvention();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
