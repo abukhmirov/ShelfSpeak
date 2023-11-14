@@ -3,16 +3,80 @@
     ViewData["Title"] = "Search Results";
 }
 
-<h2>Search Results</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
 
-@using (Html.BeginForm("SearchBooks", "Home", FormMethod.Get))
-{
-    <label for="query">Enter a query:</label>
-    <input type="text" name="query" id="query" />
-    <button type="submit">Search</button>
-}
+        h2 {
+            color: #333;
+        }
 
-@if (Model != null)
-{
-    <p>Title: @Model.title_suggest</p>
-}
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 300px;
+            max-height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Search Results</h2>
+
+    @using (Html.BeginForm("SearchBooks", "Home", FormMethod.Get))
+    {
+        <label for="query">Enter a query:</label>
+        <input type="text" name="query" id="query" />
+        <button type="submit">Search</button>
+    }
+
+    @if (Model != null)
+    {
+        <p>Title: @Model.title_suggest</p>
+
+        @if (!string.IsNullOrEmpty(Model.CoverUrl))
+        {
+            <img src="@Model.CoverUrl" alt="Book Cover" />
+        }
+    }
+
+</body>
+</html>
