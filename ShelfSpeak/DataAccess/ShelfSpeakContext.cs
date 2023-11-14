@@ -9,8 +9,8 @@ namespace ShelfSpeak.DataAccess
 {
     public class ShelfSpeakContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Message> Messages { get; set; }
-        public DbSet<User> Librarians { get; set; }
+        
+        
         public DbSet<Book> Books { get; set; }
 
 

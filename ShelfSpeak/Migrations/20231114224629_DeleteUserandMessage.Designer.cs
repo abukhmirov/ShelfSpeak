@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShelfSpeak.DataAccess;
@@ -11,9 +12,11 @@ using ShelfSpeak.DataAccess;
 namespace ShelfSpeak.Migrations
 {
     [DbContext(typeof(ShelfSpeakContext))]
-    partial class ShelfSpeakContextModelSnapshot : ModelSnapshot
+    [Migration("20231114224629_DeleteUserandMessage")]
+    partial class DeleteUserandMessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,6 +209,7 @@ namespace ShelfSpeak.Migrations
                         .HasColumnName("concurrency_stamp");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)")
                         .HasColumnName("email");
@@ -231,6 +235,11 @@ namespace ShelfSpeak.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)")
                         .HasColumnName("normalized_user_name");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text")
