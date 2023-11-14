@@ -12,15 +12,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using ShelfSpeak.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using ShelfSpeak.Models;
 
-namespace ShelfSpeak.Areas.Identity.Pages.Account
+
+namespace IdentityMessageBoard.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
