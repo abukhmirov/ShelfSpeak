@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShelfSpeak.DataAccess;
@@ -12,9 +13,11 @@ using ShelfSpeak.DataAccess;
 namespace ShelfSpeak.Migrations
 {
     [DbContext(typeof(ShelfSpeakContext))]
-    partial class ShelfSpeakContextModelSnapshot : ModelSnapshot
+    [Migration("20231114213936_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

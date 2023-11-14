@@ -10,17 +10,17 @@ namespace ShelfSpeak.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Name is required.")]
-        [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
+       
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "UserName is required.")]
-        [StringLength(100, ErrorMessage = "UserName cannot exceed 100 characters")]
+        
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
+        
         public string Password { get; set; }
         public List<Message> Posts { get; set; } = new List<Message>();
+        public List<Book> Books { get; set; } = new List<Book>();
+
 
 
 

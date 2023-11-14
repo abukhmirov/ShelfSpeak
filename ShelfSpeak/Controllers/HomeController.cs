@@ -32,10 +32,11 @@ namespace ShelfSpeak.Controllers
                 return View();
             }
 
-            Docs bookOLIDJson = _openLibraryService.SearchBooksOLIDJson(query);
+            Docs bookOLIDJson = _openLibraryService.SearchBooksDocs(query);
 
             return View(bookOLIDJson);
         }
+
 
         public IActionResult Privacy()
         {

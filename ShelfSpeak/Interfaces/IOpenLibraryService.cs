@@ -4,6 +4,6 @@ namespace ShelfSpeak.Interfaces
 {
     public interface IOpenLibraryService
     {
-        Docs SearchBooksOLIDJson(string query);
+        Docs SearchBooksDocs(string query);
     }
 }

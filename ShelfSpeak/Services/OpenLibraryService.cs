@@ -16,7 +16,7 @@ namespace ShelfSpeak.Services
             };
         }
 
-        public Docs SearchBooksOLIDJson(string query)
+        public Docs SearchBooksDocs(string query)
         {
             query = query.ToLower().Replace(" ", "+");
             var url = $"/search.json?q={query}";
@@ -30,7 +30,14 @@ namespace ShelfSpeak.Services
                     new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
                 // Assuming you want the first document in the list
-                return apiResponse.Docs?.FirstOrDefault();
+               var book = apiResponse.Docs?.FirstOrDefault();
+
+                if (book != null && book.cover_i != null)
+                {
+                    var coverUrl = $"https://covers.openlibrary.org/b/id/{book.cover_i}-M.jpg";
+                    book.CoverUrl = coverUrl;
+                }
+                return book;
             }
             else
             {
@@ -38,31 +45,5 @@ namespace ShelfSpeak.Services
             }
         }
 
-
-
-
-        //public async Task<Docs> SearchBooksOLIDJson(string query)
-        //{
-        //    query = query.ToLower().Replace(" ", "+");
-        //    var url = $"/search.json?q={query}";
-        //    var result = new OpenLibraryAPIResponse();
-        //    var response = await client.GetAsync(url);
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var stringResponse = await response.Content.ReadAsStringAsync();
-
-        //        result = JsonSerializer.Deserialize<OpenLibraryAPIResponse>(stringResponse,
-        //            new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
-
-        //        return result.Docs.FirstOrDefault();
-        //        ;
-        //    }
-        //    else
-        //    {
-        //        throw new HttpRequestException(response.ReasonPhrase);
-        //    }
-
-
-        //}
     }
 }
