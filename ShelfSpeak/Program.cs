@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using ShelfSpeak.DataAccess;
 using Microsoft.AspNetCore.Identity;
 using ShelfSpeak.Models;
+using ShelfSpeak.Interfaces;
+using ShelfSpeak.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
@@ -15,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
 
 builder.Services.AddDbContext<ShelfSpeakContext>(
     options =>

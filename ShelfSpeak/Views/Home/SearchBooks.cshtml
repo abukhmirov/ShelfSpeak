@@ -1,0 +1,18 @@
+﻿@model ShelfSpeak.Models.APIJsonShenanigans.Docs
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2>Search Results</h2>
+
+@using (Html.BeginForm("SearchBooks", "Home", FormMethod.Get))
+{
+    <label for="query">Enter a query:</label>
+    <input type="text" name="query" id="query" />
+    <button type="submit">Search</button>
+}
+
+@if (Model != null)
+{
+    <p>Title: @Model.title_suggest</p>
+}
