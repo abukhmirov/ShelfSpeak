@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShelfSpeak.DataAccess;
@@ -11,9 +12,11 @@ using ShelfSpeak.DataAccess;
 namespace ShelfSpeak.Migrations
 {
     [DbContext(typeof(ShelfSpeakContext))]
-    partial class ShelfSpeakContextModelSnapshot : ModelSnapshot
+    [Migration("20231115181304_bookFixuser")]
+    partial class bookFixuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,6 +282,11 @@ namespace ShelfSpeak.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CoverUrl")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("cover_url");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
@@ -291,11 +299,6 @@ namespace ShelfSpeak.Migrations
                     b.Property<int>("cover_i")
                         .HasColumnType("integer")
                         .HasColumnName("cover_i");
-
-                    b.Property<string>("cover_url")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("cover_url");
 
                     b.HasKey("Id")
                         .HasName("pk_books");

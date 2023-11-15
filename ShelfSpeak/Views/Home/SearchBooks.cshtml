@@ -76,6 +76,18 @@
         {
             <img src="@Model.CoverUrl" alt="Book Cover" />
         }
+
+        @using (Html.BeginForm("AddToLibrary", "Home", FormMethod.Post))
+        {
+
+            <input type="hidden" name = "title_suggest" asp-for="@Model.title_suggest" />
+            <input type="hidden" name="cover_i" asp-for="@Model.cover_i" />
+            <input type="hidden" name="CoverUrl" asp-for="@Model.CoverUrl" />
+
+
+
+            <button type="submit">Add to Library</button>
+        }
     }
 
 </body>

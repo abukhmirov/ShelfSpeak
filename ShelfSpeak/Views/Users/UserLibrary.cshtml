@@ -1,0 +1,32 @@
+﻿@model List<ShelfSpeak.Models.Book>
+
+@{
+    ViewData["Title"] = "Library";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Cover</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td><img src="@book.cover_url" alt="Book Cover" style="max-width: 100px; max-height: 150px;" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No books in the library.</p>
+}

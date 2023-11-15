@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using ShelfSpeak.DataAccess;
 using ShelfSpeak.Interfaces;
 using ShelfSpeak.Models;
 using ShelfSpeak.Models.APIJsonShenanigans;
@@ -10,11 +12,15 @@ namespace ShelfSpeak.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IOpenLibraryService _openLibraryService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ShelfSpeakContext  _context;
 
-        public HomeController(ILogger<HomeController> logger, IOpenLibraryService openLibraryService)
+        public HomeController(ILogger<HomeController> logger, IOpenLibraryService openLibraryService, UserManager<ApplicationUser> userManager, ShelfSpeakContext context)
         {
             _logger = logger;
             _openLibraryService = openLibraryService;
+            _userManager = userManager;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -24,7 +30,7 @@ namespace ShelfSpeak.Controllers
 
 
 
-        [HttpGet]
+        //No tag to do both GET and POST
         public async Task<IActionResult> SearchBooks(string query)
         {
             if (string.IsNullOrWhiteSpace(query))
@@ -32,9 +38,31 @@ namespace ShelfSpeak.Controllers
                 return View();
             }
 
-            Docs bookOLIDJson = _openLibraryService.SearchBooksDocs(query);
+            Docs searchedBook = _openLibraryService.SearchBooksDocs(query);
 
-            return View(bookOLIDJson);
+            return View(searchedBook);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToLibrary(string title_suggest, int cover_i, string CoverUrl)
+        {
+            var book = new Book
+            {
+                Title = title_suggest,
+                cover_i = cover_i,
+                cover_url = CoverUrl
+            };
+
+            var user = await _userManager.GetUserAsync(User);
+
+            book.User = user;
+
+            _context.Books.Add(book);
+
+            await _context.SaveChangesAsync();
+
+            // Redirect to the user's library
+            return RedirectToAction("UserLibrary", "Users");
         }
 
 

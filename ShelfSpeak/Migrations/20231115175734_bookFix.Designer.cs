@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShelfSpeak.DataAccess;
@@ -11,9 +12,11 @@ using ShelfSpeak.DataAccess;
 namespace ShelfSpeak.Migrations
 {
     [DbContext(typeof(ShelfSpeakContext))]
-    partial class ShelfSpeakContextModelSnapshot : ModelSnapshot
+    [Migration("20231115175734_bookFix")]
+    partial class bookFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,29 +282,29 @@ namespace ShelfSpeak.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text")
+                        .HasColumnName("application_user_id");
+
+                    b.Property<string>("CoverUrl")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("cover_url");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("title");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text")
-                        .HasColumnName("user_id");
-
                     b.Property<int>("cover_i")
                         .HasColumnType("integer")
                         .HasColumnName("cover_i");
 
-                    b.Property<string>("cover_url")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("cover_url");
-
                     b.HasKey("Id")
                         .HasName("pk_books");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_books_user_id");
+                    b.HasIndex("ApplicationUserId")
+                        .HasDatabaseName("ix_books_application_user_id");
 
                     b.ToTable("books", (string)null);
                 });
@@ -365,12 +368,10 @@ namespace ShelfSpeak.Migrations
 
             modelBuilder.Entity("ShelfSpeak.Models.Book", b =>
                 {
-                    b.HasOne("ShelfSpeak.Models.ApplicationUser", "User")
+                    b.HasOne("ShelfSpeak.Models.ApplicationUser", null)
                         .WithMany("Books")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("fk_books_users_user_id");
-
-                    b.Navigation("User");
+                        .HasForeignKey("ApplicationUserId")
+                        .HasConstraintName("fk_books_users_application_user_id");
                 });
 
             modelBuilder.Entity("ShelfSpeak.Models.ApplicationUser", b =>
