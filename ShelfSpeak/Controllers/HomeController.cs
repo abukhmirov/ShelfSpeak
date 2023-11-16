@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShelfSpeak.DataAccess;
 using ShelfSpeak.Interfaces;
@@ -31,6 +32,7 @@ namespace ShelfSpeak.Controllers
 
 
         //No tag to do both GET and POST
+        [Authorize]
         public async Task<IActionResult> SearchBooks(string query)
         {
             if (string.IsNullOrWhiteSpace(query))
@@ -43,6 +45,7 @@ namespace ShelfSpeak.Controllers
             return View(searchedBook);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddToLibrary(string title_suggest, int cover_i, string CoverUrl)
         {

@@ -3,30 +3,177 @@
 @{
     ViewData["Title"] = "Library";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700&display=swap" rel="stylesheet">
 
-<h2>@ViewData["Title"]</h2>
+    <style>
+        body {
+            font-family: 'Libre Baskerville', serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #afa690; /* Darker beige background */
+            color: #4d4640; /* Rich brown for text */
+        }
 
-@if (Model != null && Model.Count > 0)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Cover</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var book in Model)
-            {
-                <tr>
-                    <td>@book.Title</td>
-                    <td><img src="@book.cover_url" alt="Book Cover" style="max-width: 100px; max-height: 150px;" /></td>
-                </tr>
+        h2 {
+            color: #4d4640; /* Rich brown for titles */
+        }
+
+        .container {
+            display: flex;
+            padding: 20px;
+            margin: 0; /* Added to remove default margin */
+        }
+
+        .bookshelf {
+            flex: 2; /* Adjusted flex property */
+            background: url('https://i.imgur.com/9QRHcLO.jpg');
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-right: 90px;
+            max-width: 1180px;
+        }
+
+        .shelf-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+        }
+
+        .book-column {
+            flex: 1;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .book {
+            border: 1px solid #786759; /* Earthy brown border */
+            border-radius: 8px;
+            overflow: visible;
+            width: 127px;
+            height: 180px;
+            display: inline-block;
+            margin-left: 32px;
+            margin-right: 25px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: #d1c7b7; /* Light tan background */
+        }
+
+            .book img {
+                border: 3px solid #786759; /* Earthy brown border */
+                border-radius: 8px;
+                width: 127px;
+                height: 180px;
+                object-fit: fill;
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No books in the library.</p>
-}
+
+        .profile {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex; /* Added to enable flex layout */
+            flex-direction: column; /* Arrange child elements in a column */
+            align-items: center; /* Center items horizontally */
+            text-align: center; /* Center text content */
+        }
+
+            .profile img {
+                max-width: 100%;
+                max-height: 200px;
+                border-radius: 50%;
+                margin-bottom: 20px;
+            }
+
+        .bio {
+            line-height: 1.6;
+            color: #635c55; /* Dark taupe text */
+        }
+
+        .navbar {
+            background-color: #d1c7b7; /* Light tan background for the navbar */
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav-item {
+            margin-right: 15px;
+        }
+
+        .nav-link {
+            color: #4d4640; /* Rich brown for text */
+        }
+
+            .nav-link:hover {
+                color: #007bff; /* Blue on hover */
+            }
+    </style>
+
+</head>
+
+<body>
+
+    <h2>@ViewData["Title"]</h2>
+
+    @if (Model != null && Model.Count > 0)
+    {
+
+        <div class="container-fluid custom-container">
+            <div class="row">
+                <div class="col-md-6 bookshelf">
+                    <!--bookshelf -->
+
+                    <div class="shelf-row">
+                        <!-- shelf-row-->
+
+                        <div class="book-column">
+                            <!-- book-column-->
+                            @foreach (var book in Model)
+                            {
+                                <div class="book">
+                                    @if (book.cover_i == 0)
+                                    {
+
+                                        <img src="@ViewBag.NoCover">
+
+                                    }
+                                    else
+                                    {
+                                        <img src="@book.cover_url" alt="@book.Title">
+
+                                    }
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 profile">
+                    <!--profile-->
+                    <h2>Profile Picture and Bio Area</h2>
+                    <img src="https://i.imgur.com/ytEhbeP.png" alt="Profile Picture">
+                    <div class="bio">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>No books in the library.</p>
+    }
+</body>
+</html>
+
