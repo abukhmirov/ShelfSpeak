@@ -12,10 +12,11 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-color: #afa690; /* Darker beige background */
         }
 
         h2 {
-            color: #333;
+            color: #4d4640; /* Rich brown for titles */
         }
 
         form {
@@ -46,6 +47,7 @@
         p {
             font-size: 18px;
             margin-bottom: 10px;
+            color: #635c55; /* Dark taupe text */
         }
 
         img {
@@ -80,11 +82,9 @@
         @using (Html.BeginForm("AddToLibrary", "Home", FormMethod.Post))
         {
 
-            <input type="hidden" name = "title_suggest" asp-for="@Model.title_suggest" />
+            <input type="hidden" name="title_suggest" asp-for="@Model.title_suggest" />
             <input type="hidden" name="cover_i" asp-for="@Model.cover_i" />
             <input type="hidden" name="CoverUrl" asp-for="@Model.CoverUrl" />
-
-
 
             <button type="submit">Add to Library</button>
         }
