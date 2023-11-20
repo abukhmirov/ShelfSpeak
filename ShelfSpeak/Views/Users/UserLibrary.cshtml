@@ -58,12 +58,13 @@
             overflow: visible;
             width: 127px;
             height: 180px;
-            display: inline-block;
             margin-left: 32px;
             margin-right: 25px;
             margin-top: 10px;
             margin-bottom: 10px;
             background-color: #d1c7b7; /* Light tan background */
+            position: relative;
+            display: inline-block; /* This ensures that each book container is only as wide as its content */
         }
 
             .book img {
@@ -72,7 +73,18 @@
                 width: 127px;
                 height: 180px;
                 object-fit: fill;
+                display: block; /* Make the image a block element to allow positioning relative to it */
+                max-width: 100%; /* Ensure the image doesn't exceed the width of its container */
             }
+
+        .button-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%; /* Make the button container take the full width of the image */
+        }
 
         .profile {
             flex: 1;
@@ -116,6 +128,25 @@
             .nav-link:hover {
                 color: #007bff; /* Blue on hover */
             }
+
+        #image {
+            opacity: 1; /* Initial opacity, set to 1 for fully visible */
+            transition: opacity 0.5s ease-in-out; /* Transition effect for smooth hover */
+        }
+
+            #image:hover {
+                opacity: 0.5; /* Opacity on hover, set to 0.5 for 50% transparency */
+            }
+
+        #button {
+            opacity: 0; /* Initial opacity, set to 0 for fully invisible */
+            transition: opacity 0.5s ease-in-out; /* Transition effect for smooth hover */
+        }
+
+            #button:hover {
+                opacity: 0.5; /* Opacity on hover, set to 0.5 for 50% transparency */
+            }
+
     </style>
 
 </head>
@@ -139,7 +170,7 @@
                             <!-- book-column-->
                             @foreach (var book in Model)
                             {
-                                <div class="book">
+                                <div class="book" id="image">
                                     @if (book.cover_i == 0)
                                     {
 
@@ -148,11 +179,19 @@
                                     }
                                     else
                                     {
-                                        <img src="@book.cover_url" alt="@book.Title">
+                                        <img src="@book.cover_url" alt="@book.Title id = "image">
 
                                     }
-
+                                    <div class="button-container" id="button">
+                                        <div>
+                                            Button1
+                                        </div>
+                                        <div>
+                                            Button2
+                                        </div>
+                                    </div>
                                 </div>
+                                
                             }
                         </div>
                     </div>

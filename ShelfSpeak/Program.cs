@@ -6,16 +6,9 @@ using ShelfSpeak.Interfaces;
 using ShelfSpeak.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-//var connectionString = builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
-//                    ?? throw new InvalidOperationException(
-//                        "Connection string 'ShelfSpeak' not found."
-//                    )
-//            )
-//            .EnableSensitiveDataLogging()
 
-//            .UseSnakeCaseNamingConvention();
 
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
 
