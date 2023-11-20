@@ -84,6 +84,10 @@
             transform: translate(-50%, -50%);
             text-align: center;
             width: 100%; /* Make the button container take the full width of the image */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .profile {
@@ -144,7 +148,7 @@
         }
 
             #button:hover {
-                opacity: 0.5; /* Opacity on hover, set to 0.5 for 50% transparency */
+                opacity: 1; /* Opacity on hover, set to 0.5 for 50% transparency */
             }
 
     </style>
@@ -184,10 +188,28 @@
                                     }
                                     <div class="button-container" id="button">
                                         <div>
-                                            Button1
+                                            <form method="post" action="@Url.Action("DeleteFromLibrary", "Home")">
+                                                
+                                                <input type="hidden" name="bookId" value="@book.Id" />
+                                                <div class="button-container" id="button">
+                                                    <div>
+                                                        <button type="submit">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
+                                        
+
                                         <div>
-                                            Button2
+                                            <form method="post" action="@Url.Action("DeleteFromLibrary", "Home")">
+                                                
+                                                <input type="hidden" name="bookId" value="@book.Id" />
+                                                <div class="button-container" id="button">
+                                                    <div>
+                                                        <button type="submit">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -215,4 +237,3 @@
     }
 </body>
 </html>
-

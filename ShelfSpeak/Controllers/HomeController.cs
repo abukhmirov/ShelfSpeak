@@ -71,12 +71,19 @@ namespace ShelfSpeak.Controllers
 
 
         [Authorize]
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteFromLibrary(int bookId)
         {
-            var book =  _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
-            _context.Books.Remove(book);
-            return RedirectToAction("UserLibrary", "Users");
+            var book = _context.Books.FirstOrDefault(b => b.Id == bookId);
+
+            if (book != null)
+            {
+                _context.Books.Remove(book);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("UserLibrary", "Users");
+            }
+
+            return NotFound();
         }
 
 
