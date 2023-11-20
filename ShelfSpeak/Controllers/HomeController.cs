@@ -87,6 +87,23 @@ namespace ShelfSpeak.Controllers
         }
 
 
+
+        [Authorize]
+        
+        public async Task<IActionResult> BookInfo(int bookId)
+        {
+            var book = _context.Books.FirstOrDefault(b => b.Id == bookId);
+
+            if (book != null)
+            {
+
+                return View(bookId);
+            }
+
+            return NotFound();
+        }
+
+
         public IActionResult Privacy()
         {
             return View();

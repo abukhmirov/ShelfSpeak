@@ -1,0 +1,11 @@
+﻿@model ShelfSpeak.Models.APIJsonShenanigans.Docs
+
+ @if (Model != null)
+    {
+        <p>Title: @Model.title_suggest</p>
+
+        @if (!string.IsNullOrEmpty(Model.CoverUrl))
+        {
+            <img src="@Model.CoverUrl" alt="Book Cover" />
+        }
+    }
