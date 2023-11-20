@@ -97,7 +97,7 @@ namespace ShelfSpeak.Controllers
             if (book != null)
             {
 
-                return View(bookId);
+                return View(book);
             }
 
             return NotFound();
