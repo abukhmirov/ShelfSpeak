@@ -16,7 +16,7 @@ builder.Services.AddDbContext<ShelfSpeakContext>(
     options =>
         options
             .UseNpgsql(
-                builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
+                /*builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]*/Environment.GetEnvironmentVariable("DATABASE_URL")
                     ?? throw new InvalidOperationException(
                         "Connection string 'ShelfSpeak' not found."
                     )
