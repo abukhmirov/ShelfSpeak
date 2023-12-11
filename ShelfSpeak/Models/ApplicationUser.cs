@@ -7,6 +7,7 @@ namespace ShelfSpeak.Models
     {
 
         public List<Book> Books { get; set; }  = new List<Book>();
+        public List<Message> Messages { get; set; }
         public ApplicationUser()
         {
 
