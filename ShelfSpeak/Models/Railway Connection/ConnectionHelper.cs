@@ -18,11 +18,11 @@ namespace ShelfSpeak.Models.Railway_Connection
             var userInfo = databaseUri.UserInfo.Split(':');
             var builder = new NpgsqlConnectionStringBuilder
             {
-                Host = databaseUri.Host,
-                Port = databaseUri.Port,
-                Username = userInfo[0],
-                Password = userInfo[1],
-                Database = databaseUri.LocalPath.TrimStart('/'),
+                Host = Environment.GetEnvironmentVariable("PGHOST"),
+                Port = int.Parse(Environment.GetEnvironmentVariable("PGPORT")),
+                Username = Environment.GetEnvironmentVariable("PGUSER"),
+                Password = Environment.GetEnvironmentVariable("PGPASSWORD"),
+                Database = Environment.GetEnvironmentVariable("PGDATABASE"),
                 SslMode = SslMode.Require,
                 TrustServerCertificate = true
             };

@@ -14,18 +14,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
 
 var connection = Environment.GetEnvironmentVariable("DATABASE_URL");
+Console.WriteLine(connection);
 
-/*builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]*/
+/*  builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]   .EnableSensitiveDataLogging()  */
 builder.Services.AddDbContext<ShelfSpeakContext>(
     options =>
         options
             .UseNpgsql(
-                builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
-                    ?? throw new InvalidOperationException(
-                        "Connection string 'ShelfSpeak' not found."
-                    )
+                Environment.GetEnvironmentVariable("DATABASE_URL")
+
             )
-            .EnableSensitiveDataLogging()
+            
             .UseSnakeCaseNamingConvention()
             
 );
