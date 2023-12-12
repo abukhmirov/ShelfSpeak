@@ -12,18 +12,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
 
+var connection = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+/*builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]*/
 builder.Services.AddDbContext<ShelfSpeakContext>(
     options =>
         options
             .UseNpgsql(
-                /*builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]*/Environment.GetEnvironmentVariable("DATABASE_URL")
+                Environment.GetEnvironmentVariable("DATABASE_URL")
                     ?? throw new InvalidOperationException(
                         "Connection string 'ShelfSpeak' not found."
                     )
             )
             .EnableSensitiveDataLogging()
-
             .UseSnakeCaseNamingConvention()
+            
 );
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
