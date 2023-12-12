@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using ShelfSpeak.Models;
 using ShelfSpeak.Interfaces;
 using ShelfSpeak.Services;
+using ShelfSpeak.Models.Railway_Connection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,7 @@ builder.Services.AddDbContext<ShelfSpeakContext>(
     options =>
         options
             .UseNpgsql(
-                Environment.GetEnvironmentVariable("DATABASE_URL")
+                builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
                     ?? throw new InvalidOperationException(
                         "Connection string 'ShelfSpeak' not found."
                     )
@@ -33,6 +34,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<ShelfSpeakContext>();
 
 var app = builder.Build();
+var scope = app.Services.CreateScope();
+await DataHelper.ManageDataAsync(scope.ServiceProvider);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
