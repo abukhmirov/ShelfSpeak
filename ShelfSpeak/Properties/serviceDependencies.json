@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "SHELFSPEAK_DB_CONNECTION_STRING"
+    }
+  }
+}

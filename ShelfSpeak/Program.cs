@@ -1,31 +1,38 @@
 using Microsoft.EntityFrameworkCore;
 using ShelfSpeak.DataAccess;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using ShelfSpeak.Models;
 using ShelfSpeak.Interfaces;
 using ShelfSpeak.Services;
+using System.Configuration;
+
+
 
 //test
 var builder = WebApplication.CreateBuilder(args);
-
+var configuration = builder.Configuration;
 
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
 
+
 builder.Services.AddDbContext<ShelfSpeakContext>(
     options =>
         options
-            .UseNpgsql(
-                builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"]
-                    ?? throw new InvalidOperationException(
-                        "Connection string 'ShelfSpeak' not found."
-                    )
+            .UseSqlServer(
+                builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"],
+    options => options.EnableRetryOnFailure()
+            //?? throw new InvalidOperationException(
+            //    "Connection string 'ShelfSpeak' not found."
+            //)
             )
             .EnableSensitiveDataLogging()
 
+
             .UseSnakeCaseNamingConvention()
 );
+
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ShelfSpeakContext>();
@@ -44,7 +51,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 
@@ -54,4 +61,13 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
-app.Run();
+try
+{
+    app.Run();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Unhandled exception: {ex}");
+    throw; // rethrow the exception
+}
+

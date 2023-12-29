@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/ShelfSpeak/providers/Microsoft.ServiceLinker/linkers/SHELFSPEAK_DB_CONNECTION_STRING_C7CCB2B795",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/shelfspeak-server/databases/ShelfSpeakDB",
+      "type": "mssql.azure",
+      "connectionId": "SHELFSPEAK_DB_CONNECTION_STRING"
+    }
+  }
+}
