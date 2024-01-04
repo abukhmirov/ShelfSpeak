@@ -17,21 +17,25 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
 
 
-builder.Services.AddDbContext<ShelfSpeakContext>(
-    options =>
-        options
-            .UseSqlServer(
-                builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"],
-    options => options.EnableRetryOnFailure()
-            //?? throw new InvalidOperationException(
-            //    "Connection string 'ShelfSpeak' not found."
-            //)
-            )
-            .EnableSensitiveDataLogging()
+//builder.Services.AddDbContext<ShelfSpeakContext>(
+//    options =>
+//        options
+//            .UseSqlServer(
+//                builder.Configuration["SHELFSPEAK_DB_CONNECTION_STRING"],
+//    options => options.EnableRetryOnFailure()
+//            //?? throw new InvalidOperationException(
+//            //    "Connection string 'ShelfSpeak' not found."
+//            //)
+//            )
+//            .EnableSensitiveDataLogging()
 
 
-            .UseSnakeCaseNamingConvention()
-);
+//            .UseSnakeCaseNamingConvention()
+//);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ShelfSpeakContext>(options =>
+    options.UseSqlServer(connectionString).EnableSensitiveDataLogging().UseSnakeCaseNamingConvention());
 
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)

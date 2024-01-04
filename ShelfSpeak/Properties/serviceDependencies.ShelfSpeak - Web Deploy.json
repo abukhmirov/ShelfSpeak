@@ -1,11 +1,19 @@
 {
   "dependencies": {
     "mssql1": {
-      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/ShelfSpeak/providers/Microsoft.ServiceLinker/linkers/SHELFSPEAK_DB_CONNECTION_STRING_C7CCB2B795",
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/ShelfSpeak/providers/Microsoft.ServiceLinker/linkers/SHELFSPEAK_DB_CONNECTION_STRING_C7CCB2B795",
       "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/shelfspeak-server/databases/ShelfSpeakDB",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/shelfspeak-server/databases/ShelfSpeakdb",
       "type": "mssql.azure",
-      "connectionId": "SHELFSPEAK_DB_CONNECTION_STRING"
+      "connectionId": "SHELFSPEAK_DB_CONNECTION_STRING",
+      "dynamicId": null
+    },
+    "appInsights1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/microsoft.insights/components/ShelfSpeakInsights",
+      "type": "appInsights.azure",
+      "connectionId": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+      "dynamicId": null
     }
   }
 }
