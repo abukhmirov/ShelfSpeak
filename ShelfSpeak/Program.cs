@@ -35,7 +35,7 @@ builder.Services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ShelfSpeakContext>(options =>
-    options.UseSqlServer(connectionString).EnableSensitiveDataLogging().UseSnakeCaseNamingConvention());
+    options.UseSqlServer(connectionString,options => options.EnableRetryOnFailure()).EnableSensitiveDataLogging().UseSnakeCaseNamingConvention());
 
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)

@@ -20,6 +20,18 @@
             color: #4d4640; /* Rich brown for text */
         }
 
+        .profile {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex; /* Added to enable flex layout */
+            flex-direction: column; /* Arrange child elements in a column */
+            align-items: center; /* Center items horizontally */
+            text-align: center; /* Center text content */
+        }
+
         h1, h2 {
             color: #4d4640; /* Rich brown for titles */
         }
@@ -42,14 +54,16 @@
             .nav-link:hover {
                 color: #007bff; /* Blue on hover */
             }
+        
+        
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="profile">
         <h1>Welcome to ShelfSpeak</h1>
 
-
+        <!-- Navigation Bar -->
         <ul class="navbar-nav">
             @if (SignInManager.IsSignedIn(User))
             {
